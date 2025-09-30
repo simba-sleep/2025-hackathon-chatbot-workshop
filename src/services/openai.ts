@@ -20,17 +20,13 @@ export interface ChatMessage {
 
 export const sendMessage = async (messages: ChatMessage[]): Promise<string> => {
   try {
-    const completion = await openai.chat.completions.create({
+    const completion = await openai.responses.create({
       model: "gpt-3.5-turbo",
-      messages: messages,
-      max_tokens: 500,
+      input: messages,
       temperature: 0.7,
     });
 
-    return (
-      completion.choices[0]?.message?.content ||
-      "Sorry, I could not generate a response."
-    );
+    return completion.output_text || "Sorry, I could not generate a response.";
   } catch (error) {
     console.error("OpenAI API Error:", error);
     throw new Error(
