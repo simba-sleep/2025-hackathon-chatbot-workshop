@@ -5,8 +5,7 @@ export interface Message {
   timestamp: Date;
 }
 
-export interface ChatState {
-  messages: Message[];
-  isLoading: boolean;
+export interface ChatResponse {
+  response?: string;
   error?: string;
 }

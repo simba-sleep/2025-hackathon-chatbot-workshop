@@ -1,177 +1,81 @@
-# AI Chatbot Workshop
+# AI Chatbot with GPT-3.5
 
-A simple, modern chatbot browser application built with React, TypeScript, and Tailwind CSS, powered by OpenAI's GPT API.
+A simple chatbot built with Next.js, TypeScript, and Tailwind CSS that integrates with OpenAI's GPT-3.5 API.
 
 ## Features
 
-- 🤖 Real-time chat with OpenAI GPT-3.5-turbo
-- 💬 Beautiful, responsive chat interface
-- ⚡ Built with modern React hooks and TypeScript
-- 🎨 Styled with Tailwind CSS for a sleek design
-- 📱 Mobile-friendly responsive design
-- ⏰ Message timestamps
-- 🔄 Loading states and error handling
+- Modern chat interface with message bubbles
+- Real-time messaging with typing indicators
+- Responsive design with Tailwind CSS
+- TypeScript for type safety
+- Next.js API routes for secure API calls
+- Environment variable configuration
 
-## Prerequisites
+## Setup Instructions
 
-- Node.js (version 14 or higher)
-- npm or yarn package manager
-- An OpenAI API key
+1. **Install dependencies:**
 
-## Getting Started
+   ```bash
+   npm install
+   ```
 
-### 1. Clone and Install Dependencies
+2. **Set up environment variables:**
 
-```bash
-# Navigate to the project directory
-cd hackathon-chatbot-workshop
+   - Copy `env.example` to `.env.local`
+   - Add your OpenAI API key:
+     ```
+     OPENAI_API_KEY=your_openai_api_key_here
+     ```
 
-# Install dependencies
-npm install
-```
+3. **Run the development server:**
 
-### 2. Set up Environment Variables
+   ```bash
+   npm run dev
+   ```
 
-1. Copy the example environment file:
-
-```bash
-cp .env.example .env
-```
-
-2. Edit the `.env` file and add your OpenAI API key:
-
-```env
-REACT_APP_OPENAI_API_KEY=your_actual_openai_api_key_here
-```
-
-**⚠️ Important:** Never commit your actual API key to version control. The `.env` file is already included in `.gitignore`.
-
-### 3. Get Your OpenAI API Key
-
-1. Visit [OpenAI's website](https://openai.com/)
-2. Sign up or log in to your account
-3. Navigate to the API section
-4. Generate a new API key
-5. Copy the key and paste it in your `.env` file
-
-### 4. Run the Application
-
-```bash
-npm start
-```
-
-The application will open in your browser at `http://localhost:3000`.
+4. **Open your browser:**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## Project Structure
 
 ```
 src/
+├── app/
+│   ├── api/chat/
+│   │   └── route.ts          # API endpoint for OpenAI integration
+│   ├── globals.css           # Global styles with Tailwind
+│   ├── layout.tsx            # Root layout
+│   └── page.tsx              # Main page component
 ├── components/
-│   ├── Chatbot.tsx          # Main chatbot component
-│   ├── MessageBubble.tsx    # Individual message display
-│   └── ChatInput.tsx        # Message input component
-├── services/
-│   └── openai.ts           # OpenAI API integration
-├── types/
-│   └── chat.ts             # TypeScript type definitions
-├── App.tsx                 # Main App component
-├── index.tsx              # Application entry point
-└── index.css              # Global styles with Tailwind
+│   ├── Chatbot.tsx           # Main chatbot component
+│   ├── ChatInput.tsx         # Message input component
+│   └── MessageBubble.tsx     # Individual message component
+└── types/
+    └── chat.ts               # TypeScript type definitions
 ```
 
-## Key Components
+## Technologies Used
 
-### Chatbot Component
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type safety and better developer experience
+- **Tailwind CSS** - Utility-first CSS framework
+- **OpenAI API** - GPT-3.5 integration for AI responses
 
-- Manages chat state and message history
-- Handles API calls to OpenAI
-- Implements error handling and loading states
+## Getting Your OpenAI API Key
 
-### MessageBubble Component
-
-- Displays individual messages with timestamps
-- Differentiates between user and AI messages
-- Responsive design for different screen sizes
-
-### ChatInput Component
-
-- Text input with send functionality
-- Keyboard shortcuts (Enter to send, Shift+Enter for new line)
-- Loading state during API calls
+1. Visit [OpenAI Platform](https://platform.openai.com/)
+2. Sign up or log in to your account
+3. Navigate to API Keys section
+4. Create a new API key
+5. Copy the key and add it to your `.env.local` file
 
 ## Customization
 
-### Changing the AI Model
+- Modify the system prompt in `src/app/api/chat/route.ts`
+- Adjust styling in the component files
+- Change the GPT model or parameters in the API route
+- Add more features like conversation history, user authentication, etc.
 
-Edit `src/services/openai.ts` to use different models:
+## Deployment
 
-```typescript
-model: 'gpt-4', // or 'gpt-3.5-turbo-16k', etc.
-```
-
-### Styling
-
-The app uses Tailwind CSS. You can customize the appearance by modifying the classes in the component files or extending the Tailwind configuration in `tailwind.config.js`.
-
-### System Prompt
-
-Modify the system message in `src/components/Chatbot.tsx`:
-
-```typescript
-{ role: 'system', content: 'Your custom system prompt here.' }
-```
-
-## Security Notes
-
-⚠️ **Important Security Information:**
-
-This implementation uses the OpenAI API directly from the browser with `dangerouslyAllowBrowser: true`. This is suitable for development and demos but **NOT recommended for production** because:
-
-1. Your API key is exposed in the client-side code
-2. Users can see and potentially abuse your API key
-3. You have no control over API usage and costs
-
-### Production Recommendations:
-
-1. **Create a backend API** that handles OpenAI requests
-2. **Implement authentication** to control access
-3. **Use environment variables** on the server side
-4. **Implement rate limiting** to prevent abuse
-5. **Monitor API usage** and set spending limits
-
-## Available Scripts
-
-- `npm start` - Run the development server
-- `npm build` - Build the app for production
-- `npm test` - Run the test suite
-- `npm eject` - Eject from Create React App (one-way operation)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## Troubleshooting
-
-### Common Issues
-
-1. **API Key Error**: Make sure your OpenAI API key is correctly set in the `.env` file
-2. **Network Errors**: Check your internet connection and API key validity
-3. **Build Errors**: Try deleting `node_modules` and running `npm install` again
-
-### Getting Help
-
-- Check the [OpenAI API documentation](https://platform.openai.com/docs)
-- Review the browser console for error messages
-- Ensure your API key has sufficient credits
-
----
-
-Built with ❤️ for the Hackathon Chatbot Workshop
+This project can be deployed to platforms like Vercel, Netlify, or any other hosting service that supports Next.js applications. Make sure to set your environment variables in your deployment platform.
