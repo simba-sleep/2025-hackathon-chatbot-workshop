@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { Agent, run, tool } from "@openai/agents";
+import z from "zod";
 
-// Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -24,7 +25,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Call OpenAI API
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
