@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     const agent = new Agent({
       name: "Chatbot Assistant",
       tools: [readProductReviews],
-      instructions: "You are a helpful assistant. Provide clear and concise responses.",
+  instructions: "You are a helpful assistant. Provide concise responses. Use as few words as possible while remaining clear.",
     });
 
 
