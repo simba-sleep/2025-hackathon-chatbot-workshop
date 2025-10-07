@@ -17,7 +17,7 @@ export default function Home() {
         </div>
         <div className="max-w-2xl mx-auto p-4">
 
-            <h1 className="text-3xl font-bold text-center mb-4 mt-4">Welcome to the Reviews Analysis Chatbot</h1>
+            <h1 className="text-3xl font-bold text-center mb-4 mt-4 text-black">Welcome to the Reviews Analysis Chatbot</h1>
         </div>
       <Chatbot />
     </main>
