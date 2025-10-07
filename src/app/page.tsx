@@ -23,8 +23,8 @@ export default function Home() {
                      className="h-6 mx-auto m-4"/>
             </div>
             <div className="max-w-2xl mx-auto p-4">
-                <h1 className="text-3xl font-bold text-center mb-4 mt-4 text-black">Welcome to the Reviews Analysis
-                    Chatbot</h1>
+                <h1 className="text-3xl font-bold text-center mb-4 mt-4 text-black">SleepSage</h1>
+                <h2 className="text-xl font-semibold text-center mb-2 text-gray-700">Your AI-powered smart advisor for product reviews</h2>
             </div>
             <Chatbot/>
         </main>

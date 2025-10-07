@@ -9,7 +9,7 @@ export default function Chatbot() {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: "1",
-            content: "Hello! I'm your AI assistant. How can I help you today?",
+            content: "Ready to sleep smarter? 😴\nType your question to begin.",
             role: "assistant",
             timestamp: new Date(),
         },
@@ -83,7 +83,7 @@ export default function Chatbot() {
             {/* Header */}
             <div className="bg-sky-500/75 text-white p-4 text-center">
                 <h1 className="text-xl font-semibold">Ask me anything about product reviews!</h1>
-                <p className="text-blue-100 text-sm">Powered by GPT-3.5</p>
+                
             </div>
 
             {/* Messages */}
