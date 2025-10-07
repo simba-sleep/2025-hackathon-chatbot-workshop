@@ -79,7 +79,7 @@ export default function Chatbot() {
     };
 
     return (
-        <div className="flex flex-col max-w-2xl mx-auto bg-white shadow-lg">
+        <div className="flex flex-col max-w-2xl md:mx-auto bg-white shadow-lg m-6">
             {/* Header */}
             <div className="bg-sky-500/75 text-white p-4 text-center">
                 <h1 className="text-xl font-semibold">Ask me anything about product reviews!</h1>
