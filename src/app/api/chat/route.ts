@@ -1,7 +1,26 @@
+
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { Agent, run, tool } from "@openai/agents";
 import z from "zod";
+import { getProductReviews } from "./reviews";
+
+// Define a tool for reading product reviews
+const readProductReviews = tool({
+  name: "read_product_reviews",
+  description: "Read product reviews for a given product ID.",
+  parameters: z.object({
+    productId: z.string().describe("The product ID to fetch reviews for")
+  }),
+  async execute(input: { productId: string }) {
+    console.log(`Fetching reviews for product ID: ${input.productId}`);
+    const reviews = getProductReviews(input.productId);
+    if (!reviews.length) {
+      return `No reviews found for product ID ${input.productId}.`;
+    }
+    return reviews.map(r => `Reviewer: ${r.reviewer}, Rating: ${r.rating}, Comment: ${r.comment}`).join("\n");
+  }
+});
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -25,26 +44,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are a helpful assistant. Provide clear and concise responses.",
-        },
-        {
-          role: "user",
-          content: message,
-        },
-      ],
-      max_tokens: 500,
-      temperature: 0.7,
+    
+
+
+    // Use OpenAI Agents to run with the tool
+    const agent = new Agent({
+      name: "Chatbot Assistant",
+      tools: [readProductReviews],
+      instructions: "You are a helpful assistant. Provide clear and concise responses.",
     });
 
-    const response =
-      completion.choices[0]?.message?.content || "No response generated";
 
+    const result = await run(agent, [
+      { role: "user", content: message }
+    ]);
+console.log("Agent result:", result);
+    const response = result?.finalOutput || "No response generated";
     return NextResponse.json({ response });
   } catch (error) {
     console.error("Error calling OpenAI API:", error);
