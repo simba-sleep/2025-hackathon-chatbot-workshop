@@ -3,7 +3,20 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { Agent, run, tool } from "@openai/agents";
 import z from "zod";
-import { getProductReviews } from "./reviews";
+import { getProductReviews, getAllProductReviews } from "./reviews";
+// Tool to read all product reviews
+const readAllProductReviews = tool({
+  name: "read_all_product_reviews",
+  description: "Read all product reviews from the database.",
+  parameters: z.object({}),
+  async execute() {
+    const reviews = getAllProductReviews();
+    if (!reviews.length) {
+      return "No reviews found.";
+    }
+    return reviews.map(r => `Product ID: ${r.productId ?? "unknown"}, Reviewer: ${r.reviewer}, Rating: ${r.rating}, Comment: ${r.comment}`).join("\n");
+  }
+});
 
 // Define a tool for reading product reviews
 const readProductReviews = tool({
@@ -50,8 +63,8 @@ export async function POST(request: NextRequest) {
     // Use OpenAI Agents to run with the tool
     const agent = new Agent({
       name: "Chatbot Assistant",
-      tools: [readProductReviews],
-  instructions: "You are a helpful assistant. Provide concise responses. Use as few words as possible while remaining clear.",
+      tools: [readProductReviews, readAllProductReviews],
+      instructions: "You are a helpful assistant. Provide concise responses. Use as few words as possible while remaining clear.",
     });
 
 
