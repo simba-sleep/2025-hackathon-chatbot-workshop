@@ -2,7 +2,7 @@ import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white">
         <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center bg-gray-100 py-4">
             <img src="https://cdn11.bigcommerce.com/s-j35z99636s/images/stencil/250x80/scproudly_1744608269__72588.original.png" alt="Logo"
                  className="h-12 mx-auto my-4"/>
